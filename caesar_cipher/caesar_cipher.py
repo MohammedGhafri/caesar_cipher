@@ -2,14 +2,17 @@ import re
 import nltk
 nltk.download('words')
 
-def encrypt(str,key):
+def encrypt(str,key,state="encrypt"):
     """
     str- String that will be encrypted using ASCII Code
     key-: Number of shifting
     encrypted_msg _ returned encrypted message
     """
-    
-    str=text_only(str)
+
+
+    if state == "encrypt": # Remove the special characters just for encryption
+        str=text_only(str)
+
     encrypted_msg=''
     
     if key <0:
@@ -35,7 +38,7 @@ def text_only(str):
 
     return a
 def decrypt(str,key):
-    return encrypt(str,-key)
+    return encrypt(str,-key,"dec")
 
 
 
@@ -45,46 +48,84 @@ original_words_list = nltk.corpus.words.words()
 words_list = [word.lower() for word in original_words_list]
 
 
-def count_words(sentence):
 
-    # sentence=[decrypt(sentence,i) for i in range(1,27)]
-    # print(sentence)
 
-    # sentence_words = [str.split() for str in sentence]
-    en_word_count = 0
-
-    for word in sentence:
-        for word_s in word:
-            if word.lower() in words_list:
-                en_word_count += 1
-
-    return en_word_count
 
 def most_likely(sentences):
-    _max = 0
-    _max_sentence = ''
-    sentence=[decrypt(sentences,i) for i in range(1,27)]
-    print(sentence)
-
-    for sentence in sentence:
-        if count_words(sentence) > _max:
-            print(count_words(sentence))
-            _max_sentence = sentence
-            _max = count_words(sentence)
-    return _max_sentence
-
-
+    """
+    function to expect the message
+    input -{sentences}encrypted message(s)
+    output-{arr3} list of possible messeges
+    """
+    try:
+        sentences=sentences.split()
+        for word in sentences:
+            arr=[decrypt(word,i) for i in range(1,27)]
+    
+        # print(sentences)
 
 
+        arr2=[]
+        arr3=[]
+        
+        
+        for sp in arr:
+            sp=sp.split()
+            # print(sp)
+            for i in sp :
+                if i in words_list:
+                    arr2.append(sp)
+                    break
+                # print(i)
+        for i in arr2:
+            print("Tjis is I : ",i)
+            a=' '.join([str(elem) for elem in i])
+            arr3.append(a)
+    except:
+        return "invalid input"
+    # most_possible=most_possible_func(arr3)
+    # return f"Array of possible sentences is/are : {arr3}"
+    return arr3
+
+ 
 
 
 
+
+
+# def most_possible_func(str):
+#     _max = 0
+#     _max_sentence = ''
+
+#     for sentence in str:
+#         try:
+#             sen=sentence.split()
+#             for i in sen:
+                
+#                 if i in words_list:
+#                     _max+=1
+
+
+#         if count_words(sentence) > _max:
+#             _max_sentence = sentence
+#             _max = count_words(sentence)
+#     return _max_sentence
     
 
 
 if __name__ == "__main__":
     # print(encrypt("mohammed",1))
-    print(encrypt("mohamm21:?/ed",28))
-    print(decrypt('oqjcoogf',2))
-    print(most_likely('oqjcoogf'))
+    print(encrypt("Why you 401 5are here",5))
+    print(decrypt('\m~%~tz%956%:fwj%mjwj',5))
+    # print(most_likely('dktf"jkdjk"oqjcoogf'))
+
+    # print(most_likely('Gcv"vjg"dktf"dfsg"oqjcoogf'))
+    # print(most_likely('\m~%~tz%fwj%mjwj'))
+    # print(most_likely(""))
+    
+    
+
+    
+
+    
     # print(reg('moh:dgdf555s jkhl'))
