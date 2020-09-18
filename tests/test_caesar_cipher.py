@@ -10,8 +10,8 @@ def test_encryption():
     """
     Do encryption and test the result
     """
-    expected="^rs}*s}**z\x83~ryx*my\x7f|}o"
-    actual=encrypt("This is 401 python course",10)
+    expected="Ymnx nx 956 u~ymts htzwxj"
+    actual=encrypt("This is 401 python course",5)
     assert expected==actual
 
 
@@ -19,8 +19,8 @@ def test_decryption():
     """
     Do decryption and test the result
     """
-    expected="This is  python course"
-    actual=decrypt("^rs}*s}**z\x83~ryx*my\x7f|}o",10)
+    expected="This is python course"
+    actual=decrypt('Ymnx nx u~ymts htzwxj',5)
     assert expected==actual
     
 
@@ -34,3 +34,11 @@ def test_possible_sentence_2():
     actual=str(most_likely(''))
     assert expected==actual
     
+
+def test_fruit_for_Samer():
+    """
+    Do encryption and test the result
+    """
+    expected="bqqmft boe cbobobt"
+    actual=encrypt("apples and bananas",1)
+    assert expected==actual
