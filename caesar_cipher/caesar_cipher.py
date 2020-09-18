@@ -11,7 +11,8 @@ def encrypt(str,key,state="encrypt"):
 
 
     if state == "encrypt": # Remove the special characters just for encryption
-        str=text_only(str)
+        pass
+    str=text_only(str)
 
     encrypted_msg=''
     
@@ -22,19 +23,30 @@ def encrypt(str,key,state="encrypt"):
         key%=26
 
     
+    for idx,elem in enumerate(str):
+        # print(elem)
+        for char in elem:
+            # print(char)
+            letter=ord(char)+key
 
-    for char in str:
-        letter=ord(char)+key
-        # print(letter,chr(letter))
-        encrypted_msg+=chr(letter)
+            # print(char,letter,chr(letter))
+            encrypted_msg+=chr(letter)
         # print(encrypted_msg)
-    return encrypted_msg
+        if idx==(len(str)-1):
+            # print("last elem",elem)
+            return encrypted_msg
+        encrypted_msg+=' '
+    # return encrypted_msg
 
 def text_only(str):
     # a=re.sub('[^A-Za-z0-9]+', '', str)
     # a=re.sub('[?|$|.|!|:]','',str)
     # a=re.sub(r"[^a-zA-Z0-9|(\s)(\n)]","",str)
-    a=re.sub(r"[^a-zA-Z|(\s)(\n)]","",str)
+    # a=re.sub(r"[^a-zA-Z|(\s)(\n)]","",str)
+
+    a=str.split()
+
+    return a
 
     return a
 def decrypt(str,key):
@@ -115,8 +127,8 @@ def most_likely(sentences):
 
 if __name__ == "__main__":
     # print(encrypt("mohammed",1))
-    print(encrypt("Why you 401 5are here",5))
-    print(decrypt('\m~%~tz%956%:fwj%mjwj',5))
+    print(encrypt("apples and bananas", 1))
+    print(decrypt('bqqmft boe cbobobt',1))
     # print(most_likely('dktf"jkdjk"oqjcoogf'))
 
     # print(most_likely('Gcv"vjg"dktf"dfsg"oqjcoogf'))
